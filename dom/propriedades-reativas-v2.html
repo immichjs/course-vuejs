@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <button v-on:click="increment">Aumentar</button>
+    <button v-on:click="count2++">Aumentar 2</button>
+    <button v-on:click="decrement">Diminuir</button>
+    <p>Contador: {{ count }} | {{ count2 }}</p>
+    <p>Resultado: {{ result }}</p>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            count: 0,
+            count2: 0
+        },
+        computed: {
+        result() {
+                console.log('Método computado foi chamado')
+                return this.count >= 5 ? 'Maior ou igual a 5' : 'Menor que 5'
+            }
+        },
+        watch: {
+            count(novo, antigo) { // É necessário ter conflito para monitorar a chamada da função
+                setTimeout(() => {
+                    this.count = 0
+                }, 2000)
+            }
+        },
+        methods: {
+            increment() {
+                this.count++
+            },
+            decrement() {
+                this.count--
+            },
+            // result() {
+            //     console.log('Método computado foi chamado')
+            //     return this.count >= 5 ? 'Maior ou igual a 5' : 'Menor que 5'
+            // }
+        },
+    })
+</script>

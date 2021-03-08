@@ -8,6 +8,7 @@
         <span v-on:mousemove.stop="">Parar Aqui</span>
     </p>
     <a v-on:click.prevent="notNav" href="https://google.com.br">Google</a> <!-- Previne o evento padrão de click -->
+    <input type="text" v-on:keyup.enter.alt="showAlert">
 </div>
 
 <script>
@@ -31,7 +32,10 @@
             // }
             notNav(event) {
                 console.log('Não é possível navegar por esse link')
-            } 
+            },
+            showAlert() {
+                alert('Estou te alertando')
+            }
         },
     })
 </script>
