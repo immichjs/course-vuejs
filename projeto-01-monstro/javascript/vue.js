@@ -88,10 +88,9 @@ new Vue({
         },
         heal() {
             if (this.playerLife < 100) {
-                this.playerLife += Math.floor(Math.random() * (12 - 5) + 5)
+                let helper = this.playerLife += Math.floor(Math.random() * (12 - 5) + 5)
+                this.playerLife + helper > 100 ? this.playerLife = 100 : this.playerLife
                 this.playerLosesLife(12, 0)
-            } else if (this.playerLife >= 100) {
-                this.playerLife = 100
             }
         },
         surrender() {
