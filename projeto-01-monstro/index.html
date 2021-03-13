@@ -24,7 +24,7 @@
         <div v-else-if="skills">
             <button @click="attack">Ataque</button>
             <button @click="specialAttack">Ataque Especial</button>
-            <button @click="heal">Curar</button>
+            <button @click="heal" :disabled="isDisabled">Curar</button>
             <button @click="surrender">Desistir</button>
         </div>
     </div>

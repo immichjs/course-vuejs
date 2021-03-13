@@ -5,11 +5,27 @@ new Vue({
         playerLife: 100,
         monsterLife: 100,
         skills: false,
+        disabledStatus: true,
         lossMessage: false,
         winMessage: false,
         surrenderMessage: false,
         tryAgain: false,
         logs: [],
+    },
+    computed: {
+        isDisabled() {
+            if (this.playerLife < 100) {
+                this.disabledStatus = false
+            }
+            return this.disabledStatus
+        }
+    },
+    watch: {
+        playerLife() {
+            if (this.playerLife >= 100) {
+                this.disabledStatus = true
+            }
+        }
     },
     methods: {
         // Iniciar jogo

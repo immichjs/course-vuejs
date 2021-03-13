@@ -1,0 +1,22 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+    <button type="submit" class="btn btn-info" :disabled="isDisabled">Next</button>
+</div>
+  
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        yourCondition: false
+    },
+    computed: {
+        isDisabled() {
+            setTimeout(() => {
+                this.yourCondition = true
+            }, 5000);
+            return this.yourCondition
+        }
+    }
+})
+</script>
