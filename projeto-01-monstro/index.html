@@ -1,0 +1,36 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+    <div>
+        <div>
+            <h2>Jogador</h2>
+            <div></div>
+            <p>{{ playerLife }}%</p>
+        </div>
+        <div>
+            <h2>Monstro</h2>
+            <div></div>
+            <p>{{ monsterLife }}%</p>
+        </div>
+    </div>
+    <div>
+        <span v-if="lossMessage">Você perdeu!</span>
+        <span v-else-if="winMessage">Você ganhou!</span>
+        <span v-else-if="surrenderMessage">Você desistiu :(</span>
+        <button v-if="tryAgain" @click="playAgain">Jogar novamente</button>
+    </div>
+    <div>
+        <button @click="startGame" v-if="onGame">Iniciar Novo Jogo</button>
+        <div v-else-if="skills">
+            <button @click="attack">Ataque</button>
+            <button @click="specialAttack">Ataque Especial</button>
+            <button @click="heal">Curar</button>
+            <button @click="surrender">Desistir</button>
+        </div>
+    </div>
+    <ul v-for="log in logs" v-if="logs">
+        <li v-for="(item, index) in log" :key="index">{{ item }}</li>
+    </ul>
+</div>
+
+<script src="javascript/vue.js"></script>
