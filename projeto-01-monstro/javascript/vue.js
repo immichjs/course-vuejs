@@ -42,6 +42,7 @@ new Vue({
                 this.tryAgain = !this.tryAgain
                 this.playerLife = 100
                 this.monsterLife = 100
+                this.logs = []
             }
             if (this.winMessage) {
                 this.winMessage = !this.winMessage
