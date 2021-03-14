@@ -1,14 +1,6 @@
-@media only screen and (min-width: 425px) {
-
-}
-
-@media only screen and  (min-width: 768px) {
-   
-}
-
 @media only screen and (min-width: 1024px) {
     #app {
-        width: 80%;
+        width: 75%;
         margin: 20px auto;
     }
 
@@ -21,9 +13,45 @@
         padding: 50px;
     }
 
-    .skills > div > button, .skills > button {
+    .player > div, .monster > div {
+        height: 40px;
+        border-radius: 8px;
+    }
+
+    .player > div > .hp, .monster > div > .hp {
+        border-radius: 5px;
+    }
+
+    .player > h2, .monster > h2 {
+        font-size: 1.4rem;
+    }
+
+    .player > p, .monster > p {
+        font-size: 1rem;
+    }
+
+    .win-condition {
+        font-size: 1.2rem;
+    }
+
+    .skills > button, .skills > div > button {
+        padding: 15px;
+        font-size: 1rem;
         border-radius: 5px;
         transition: .3s;
+    }
+
+    .skills > div > button:hover, .skills > button:hover {
+        transform: translateY(2px);
+    }
+
+    .skills > div > button:active, .skills > button:active {
+        transform: translateY(0);
+        transform: scale(0.95);
+    }
+
+    .skills > div > button:disabled {
+        transform: translate(0) scale(1);
     }
 
     .skills > div > button > img {
@@ -31,10 +59,15 @@
         -webkit-user-drag: none;
         width: 32px;
     }
-}
 
-@media only screen and (min-width: 1300px) {
-    #app {
-        width: 50%;
+    .logs > h2 {
+        font-size: 1.4rem;
+        margin: 5px 0 25px;
+    }
+
+    .logs > ul > li {
+        padding: 10px 0;
+        border-radius: 8px;
+        font-size: 1rem;
     }
 }

@@ -12,7 +12,7 @@
             <h2>Jogador</h2>
             <div>
                 <div class="hp" :style="playerLifeStyle"></div>
-            </div>''
+            </div>
             <p>HP: {{ playerLife }} / 100</p>
         </div>
         <div class="monster">
@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="logs" v-if="logs != false">
-        <h2>Historico de ataques</h2>
+        <h2>Historico de batalha</h2>
         <ul>
             <li v-for="log in logs">{{ log }}</li>
         </ul>
