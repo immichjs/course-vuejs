@@ -3,8 +3,8 @@ new Vue({
     data: {
         onGame: true,
         playerLife: 100,
-        playerLifeStyle: `width: ${ 100 }%`,
         monsterLife: 100,
+        playerLifeStyle: `width: ${ 100 }%`,
         monsterLifeStyle: `width: ${ 100 }%`,
         skills: false,
         disabledStatus: true,
@@ -16,26 +16,21 @@ new Vue({
     },
     computed: {
         isDisabled() {
-            if (this.playerLife < 100) {
+            if (this.playerLife < 100)
                 this.disabledStatus = false
-            }
             return this.disabledStatus
         }
     },
     watch: {
         playerLife() {
-            if (this.playerLife >= 100) {
+            if (this.playerLife >= 100)
                 this.disabledStatus = true
-            }
-            if (this.playerLife == 100) {
+            if (this.playerLife == 100)
                 this.playerLifeStyle = this.playerLife
-            }
-            
         },
         monsterLife() {
-            if (this.monsterLife == 100) {
+            if (this.monsterLife == 100)
                 this.monsterLifeStyle = this.monsterLife
-            }
         },
     },
     methods: {
@@ -54,11 +49,10 @@ new Vue({
                 this.monsterLife = 100
                 this.logs = []
             }
-            if (this.winMessage) {
+            if (this.winMessage)
                 this.winMessage = !this.winMessage
-            } else if (this.lossMessage) {
+            else if (this.lossMessage)
                 this.lossMessage = !this.lossMessage
-            }
         },
 
         // Métodos que serão chamados por outros métodos
@@ -70,6 +64,9 @@ new Vue({
         },
         validateWinCondition(player, monster) {
             if (this.playerLife < 0) {
+                if (this.monsterLife < 0)
+                    this.monsterLife = 0
+
                 this.playerLife = 0
                 this.lossMessage = !this.lossMessage
                 this.skills = !this.skills
@@ -88,29 +85,34 @@ new Vue({
             this.playerLifeStyle = `width: ${ this.playerLife }%`
             this.monsterLifeStyle = `width: ${ this.monsterLife }%`
             
-            if (this.playerLife <= 20) {
-                this.playerLifeStyle = `background: linear-gradient(0deg, rgb(180, 50, 50) 0%, rgb(100, 0, 0) 100%); width: ${ this.playerLife }%`
-            }
-            if (this.monsterLife <= 20) {
-                this.monsterLifeStyle = `background: linear-gradient(0deg, rgb(180, 50, 50) 0%, rgb(100, 0, 0) 100%); width: ${ this.monsterLife }%`
-            }
+            if (this.playerLife <= 20)
+                this.playerLifeStyle = `background: linear-gradient(0deg, rgb(180, 50, 50) 0%, rgb(100, 0, 0) 100%);
+                    width: ${ this.playerLife }%;`
+            if (this.monsterLife <= 20)
+                this.monsterLifeStyle = `background: linear-gradient(0deg, rgb(180, 50, 50) 0%, rgb(100, 0, 0) 100%);
+                    width: ${ this.monsterLife }%;`
+        },
+        pushToLogs(aux, aux2) {
+            this.logs.push(`Monstro deu ${ aux - this.playerLife } de dano no Jogador`,
+                `Jogador deu ${ aux2 - this.monsterLife } de dano no Monstro`)
+            return this.logs
         },
 
         // Métodos das habilidades
         attack() {
-            let aux = this.playerLife
-            let aux2 = this.monsterLife
-
+            let oldPlayerLife = this.playerLife
+            let oldMonsterLife = this.monsterLife
+            
             this.validateWinCondition(this.playerLosesLife(), this.monsterLosesLife())
-            this.logs.push(`Monstro deu ${ aux - this.playerLife } de dano no Jogador`, `Jogador deu ${ aux2 - this.monsterLife } de dano com Ataque Normal`)
+            this.pushToLogs(oldPlayerLife, oldMonsterLife)
             this.lifeControl()
         },
         specialAttack() {
-            let aux = this.playerLife
-            let aux2 = this.monsterLife
+            let oldPlayerLife = this.playerLife
+            let oldMonsterLife = this.monsterLife
 
             this.validateWinCondition(this.playerLosesLife(), this.monsterLosesLife(12, 8))
-            this.logs.push(`Monstro deu ${ aux - this.playerLife } de dano no Jogador`, `Jogador deu ${ aux2 - this.monsterLife } de dano com Ataque Especial`)
+            this.pushToLogs(oldPlayerLife, oldMonsterLife)
             this.lifeControl()
         },
         heal() {
