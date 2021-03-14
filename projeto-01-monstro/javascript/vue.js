@@ -88,9 +88,12 @@ new Vue({
             this.logs.push([`Monstro deu ${aux - this.playerLife}`, `Jogador deu ${aux2 - this.monsterLife}`])
         },
         heal() {
-            if (this.playerLife < 100) {
-                let helper = this.playerLife += Math.floor(Math.random() * (12 - 5) + 5)
-                this.playerLife + helper > 100 ? this.playerLife = 100 : this.playerLife
+            let helper = this.playerLife + Math.floor(Math.random() * (12 - 5) + 5)
+            if (helper > 100) {
+                this.playerLife = 100
+                console.log(this.playerLosesLife(12, 0))
+            } else {
+                this.playerLife = helper
                 this.playerLosesLife(12, 0)
             }
         },
