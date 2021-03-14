@@ -1,0 +1,40 @@
+@media only screen and (min-width: 425px) {
+
+}
+
+@media only screen and  (min-width: 768px) {
+   
+}
+
+@media only screen and (min-width: 1024px) {
+    #app {
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    #app > img {
+        width: 100px;
+    }
+
+    .container {
+        grid-template-columns: 1fr 1fr;
+        padding: 50px;
+    }
+
+    .skills > div > button, .skills > button {
+        border-radius: 5px;
+        transition: .3s;
+    }
+
+    .skills > div > button > img {
+        user-select: none;
+        -webkit-user-drag: none;
+        width: 32px;
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+    #app {
+        width: 50%;
+    }
+}

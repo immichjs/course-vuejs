@@ -1,36 +1,57 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/media-queries.css">
+
 <div id="app">
+    <img src="images/kraken.png">
     <div class="container">
-        <div>
+        <div class="player">
             <h2>Jogador</h2>
-            <div></div>
-            <p>{{ playerLife }}%</p>
+            <div>
+                <div class="hp" :style="playerLifeStyle"></div>
+            </div>
+            <p>HP: {{ playerLife }} / 100</p>
         </div>
-        <div>
+        <div class="monster">
             <h2>Monstro</h2>
-            <div></div>
-            <p>{{ monsterLife }}%</p>
+            <div>
+                <div class="hp" :style="monsterLifeStyle"></div>
+            </div>
+            <p>HP: {{ monsterLife }} / 100</p>
         </div>
     </div>
-    <div>
-        <span v-if="lossMessage">Você perdeu!</span>
-        <span v-else-if="winMessage">Você ganhou!</span>
-        <span v-else-if="surrenderMessage">Você desistiu :(</span>
+    <div v-if="lossMessage || winMessage || surrenderMessage" class="win-condition">
+        <span v-if="lossMessage" class="loss">Você perdeu! ☔</span>
+        <span v-else-if="winMessage" class="win">Você ganhou! ✨</span>
+        <span v-else-if="surrenderMessage" class="surrender">Você desistiu 🏳️</span>
+    </div>
+    <div class="skills">
+        <button @click="startGame" v-if="onGame">Iniciar novo jogo</button>
         <button v-if="tryAgain" @click="playAgain">Jogar novamente</button>
-    </div>
-    <div>
-        <button @click="startGame" v-if="onGame">Iniciar Novo Jogo</button>
         <div v-else-if="skills">
-            <button @click="attack">Ataque</button>
-            <button @click="specialAttack">Ataque Especial</button>
-            <button @click="heal" :disabled="isDisabled">Curar</button>
-            <button @click="surrender">Desistir</button>
+            <button @click="attack" class="attack" title="Atacar">
+                <img src="images/sword.png">
+            </button>
+            <button @click="specialAttack" class="specialAttack" title="Ataque Especial">
+                <img src="images/fire.png">
+            </button>
+            <button @click="heal" class="heal" :disabled="isDisabled" title="Curar">
+                <img src="images/heart.png">
+            </button>
+            <button @click="surrender" class="surrender" title="Desistir">
+                <img src="images/peace.png">
+            </button>
         </div>
     </div>
-    <ul v-for="log in logs" v-if="logs">
-        <li v-for="(item, index) in log" :key="index">{{ item }}</li>
-    </ul>
+    <div class="logs" v-if="logs != false">
+        <h2>Historico de ataques</h2>
+        <ul>
+            <li v-for="log in logs">{{ log }}</li>
+        </ul>
+    </div>
 </div>
 
 <script src="javascript/vue.js"></script>

@@ -3,7 +3,9 @@ new Vue({
     data: {
         onGame: true,
         playerLife: 100,
+        playerLifeStyle: `width: ${ 100 }%`,
         monsterLife: 100,
+        monsterLifeStyle: `width: ${ 100 }%`,
         skills: false,
         disabledStatus: true,
         lossMessage: false,
@@ -25,17 +27,25 @@ new Vue({
             if (this.playerLife >= 100) {
                 this.disabledStatus = true
             }
-        }
+            if (this.playerLife == 100) {
+                this.playerLifeStyle = this.playerLife
+            }
+            
+        },
+        monsterLife() {
+            if (this.monsterLife == 100) {
+                this.monsterLifeStyle = this.monsterLife
+            }
+        },
     },
     methods: {
-        // Iniciar jogo
+        // Métodos que fazem executar o início de jogo
         startGame() {
             this.skills = true
             this.onGame = !this.onGame
             if (this.surrenderMessage)
                 this.surrenderMessage = !this.surrenderMessage
         },
-        // Jogar novamente
         playAgain() {
             this.skills = true
             if (this.tryAgain) {
@@ -50,6 +60,7 @@ new Vue({
                 this.lossMessage = !this.lossMessage
             }
         },
+
         // Métodos que serão chamados por outros métodos
         playerLosesLife(maxPlayerLife = 10, minPlayerLife = 7) { // Valores padrões max e min = (10, 7)
             this.playerLife -= Math.floor(Math.random() * (maxPlayerLife - minPlayerLife) + minPlayerLife)
@@ -57,7 +68,7 @@ new Vue({
         monsterLosesLife(maxMonsterLife = 9, minMonsterLife = 6) { // Valores padrões max e min = (9, 6)
             this.monsterLife -= Math.floor(Math.random() * (maxMonsterLife - minMonsterLife) + minMonsterLife)
         },
-        validatePlayerCondition(player, monster) {
+        validateWinCondition(player, monster) {
             if (this.playerLife < 0) {
                 this.playerLife = 0
                 this.lossMessage = !this.lossMessage
@@ -73,28 +84,48 @@ new Vue({
                 monster
             }
         },
+        lifeControl() {
+            this.playerLifeStyle = `width: ${ this.playerLife }%`
+            this.monsterLifeStyle = `width: ${ this.monsterLife }%`
+            
+            if (this.playerLife <= 20) {
+                this.playerLifeStyle = `background: linear-gradient(0deg, rgb(180, 50, 50) 0%, rgb(100, 0, 0) 100%); width: ${ this.playerLife }%`
+            }
+            if (this.monsterLife <= 20) {
+                this.monsterLifeStyle = `background: linear-gradient(0deg, rgb(180, 50, 50) 0%, rgb(100, 0, 0) 100%); width: ${ this.monsterLife }%`
+            }
+        },
 
         // Métodos das habilidades
         attack() {
             let aux = this.playerLife
             let aux2 = this.monsterLife
-            this.validatePlayerCondition(this.playerLosesLife(), this.monsterLosesLife())
-            this.logs.push([`Monstro deu ${aux - this.playerLife}`, `Jogador deu ${aux2 - this.monsterLife}`])
+
+            this.validateWinCondition(this.playerLosesLife(), this.monsterLosesLife())
+            this.logs.push(`Monstro deu ${ aux - this.playerLife } de dano no Jogador`, `Jogador deu ${ aux2 - this.monsterLife } de dano com Ataque Normal`)
+            this.lifeControl()
         },
         specialAttack() {
             let aux = this.playerLife
             let aux2 = this.monsterLife
-            this.validatePlayerCondition(this.playerLosesLife(), this.monsterLosesLife(12, 9))
-            this.logs.push([`Monstro deu ${aux - this.playerLife}`, `Jogador deu ${aux2 - this.monsterLife}`])
+
+            this.validateWinCondition(this.playerLosesLife(), this.monsterLosesLife(12, 8))
+            this.logs.push(`Monstro deu ${ aux - this.playerLife } de dano no Jogador`, `Jogador deu ${ aux2 - this.monsterLife } de dano com Ataque Especial`)
+            this.lifeControl()
         },
         heal() {
             let helper = this.playerLife + Math.floor(Math.random() * (12 - 5) + 5)
+
             if (helper > 100) {
                 this.playerLife = 100
-                console.log(this.playerLosesLife(12, 0))
+                this.playerLosesLife(12, 0)
+                this.lifeControl()
             } else {
                 this.playerLife = helper
                 this.playerLosesLife(12, 0)
+                // Ainda não consegui implementar um lógica para isso.
+                // this.logs.push(``) 
+                this.lifeControl()
             }
         },
         surrender() {
@@ -102,6 +133,8 @@ new Vue({
             this.monsterLife = 100
             this.surrenderMessage = !this.surrenderMessage
             this.onGame = !this.onGame
+            this.skills = !this.skills
+            this.logs = []
         },
     },
 })
