@@ -16,7 +16,7 @@ export default {
   },
   actions: {
     adicionarProduto({ commit }, payload) {
-      setTimeout(() => commit('adicionarProduto', payload), 1000)
+      setTimeout(() => commit('adicionarProduto', payload), 500)
     }
     // adicionarProduto: {
     //   root: true,
