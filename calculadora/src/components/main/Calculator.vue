@@ -67,8 +67,7 @@ export default {
     addDigit(n) {
       if (n === '.' && this.displayValue.includes('.')) return
 
-      const clearDisplay = this.displayValue === '0'
-        || this.clearDisplay
+      const clearDisplay = this.displayValue === '0' || this.clearDisplay
       const currentValue = clearDisplay ? '' : this.displayValue
       const displayValue = currentValue + n
 
